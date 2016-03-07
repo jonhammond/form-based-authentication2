@@ -6,7 +6,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var swig = require('swig');
-
+var cookieSession = require('cookie-session');
+require('dotenv').load();
 
 // *** routes *** //
 var routes = require('./routes/index.js');
@@ -34,7 +35,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser("secret"));
+app.use(cookieSession({
+  name: 'session',
+  keys: [
+    process.env.SESSION_KEY1,
+    process.env.SESSION_KEY2,
+    process.env.SESSION_KEY3,
+  ]
+}));
 app.use(express.static(path.join(__dirname, '../client')));
 
 
