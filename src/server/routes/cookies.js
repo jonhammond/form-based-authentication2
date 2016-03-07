@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-// var cookieParser = require('cookie-parser');
-
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Cookies', result: undefined });
