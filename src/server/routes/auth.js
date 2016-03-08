@@ -11,8 +11,19 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/find-by-username', function(req, res, next) {
-
-  res.render('index', { title: 'Auth', result: undefined });
+  var userURL = req.query.username;
+  var userData;
+  userInfo.forEach(function(el) {
+    if(el.username === userURL) {
+      userData = el;
+      userData = JSON.stringify(userData);
+    }
+  res.render('index', { title: 'Auth', result: userData });
+  });
 });
 
 module.exports = router;
+
+// var pass = 'momoneynoproblems';
+// var salt = bcrypt.genSaltSync(10);
+// var hash = bcrypt.hashSync(pass, salt);
