@@ -22,8 +22,22 @@ router.get('/find-by-username', function(req, res, next) {
   });
 });
 
-module.exports = router;
+router.get('/verify-password', function(req, res, next) {
+  var userURL = req.query.username;
+  var userData;
+  var userPassword;
+  userInfo.forEach(function(el) {
+    if(el.username === userURL) {
+      console.log('test');
+      userPassword = el.password;
+      console.log('password:', userPassword);
+    }
+    bcrypt.compare('momoneynoproblems', userPassword, function(err, data) {
+      res.render('index', {
+        title: 'Verify-Password',
+        result: data});
+    });
+  });
+});
 
-// var pass = 'momoneynoproblems';
-// var salt = bcrypt.genSaltSync(10);
-// var hash = bcrypt.hashSync(pass, salt);
+module.exports = router;
